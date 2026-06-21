@@ -1,18 +1,6 @@
 /**
  * About page — path /about
  * Prompt: $ whoami
- *
- * Layout (desktop):
- *   - Headshot + name/role row, photo left, text top-aligned
- *   - Bio paragraph
- *   - Info grid (experience, focus, status)
- *   - Hobbies row
- *   - // comment line
- *
- * Sizing:
- *   - $ whoami: text-sm → md:text-[28px]
- *   - Photo: clamp(72px, 12vw, 160px)
- *   - Name: clamp(1.1rem, 2.2vw, 1.6rem)
  */
 
 import {
@@ -23,10 +11,10 @@ import {
 } from '@tabler/icons-react'
 
 const HOBBIES = [
-  { icon: IconBarbell,       label: 'powerlifting'  },
-  { icon: IconTerminal2,     label: 'linux ricing'  },
-  { icon: IconMountain,      label: 'hiking'        },
-  { icon: IconDeviceGamepad2, label: 'video games'  },
+  { icon: IconBarbell,        label: 'powerlifting', color: 'var(--mocha-peach)'  },
+  { icon: IconTerminal2,      label: 'linux ricing', color: 'var(--mocha-green)'  },
+  { icon: IconMountain,       label: 'hiking',       color: 'var(--mocha-yellow)' },
+  { icon: IconDeviceGamepad2, label: 'video games',  color: 'var(--mocha-mauve)'  },
 ]
 
 const INFO = [
@@ -39,9 +27,9 @@ export default function About() {
   return (
     <section aria-label="About Nathan Blaga">
 
-      {/* $ whoami */}
+      {/* $ whoami — large on both mobile and desktop */}
       <p
-        className="text-xl md:text-[52px] mb-5 md:mb-7 font-normal"
+        className="text-2xl md:text-[64px] mb-5 md:mb-7 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ whoami
@@ -50,12 +38,12 @@ export default function About() {
       {/* Photo + name/role — top-aligned on desktop */}
       <div className="flex flex-col md:flex-row md:items-start gap-5 md:gap-7 mb-5 md:mb-6">
 
-        {/* Headshot */}
+        {/* Headshot — bigger on mobile too */}
         <div
           className="shrink-0 rounded-xl border overflow-hidden self-start"
           style={{
-            width:       'clamp(110px, 16vw, 220px)',
-            height:      'clamp(110px, 16vw, 220px)',
+            width:       'clamp(140px, 16vw, 220px)',
+            height:      'clamp(140px, 16vw, 220px)',
             borderColor: 'var(--mocha-surface1)',
           }}
         >
@@ -118,15 +106,15 @@ export default function About() {
         ))}
       </div>
 
-      {/* Hobbies */}
+      {/* Hobbies — each with its own accent colour */}
       <div className="flex flex-wrap gap-3 mb-5">
-        {HOBBIES.map(({ icon: Icon, label }) => (
+        {HOBBIES.map(({ icon: Icon, label, color }) => (
           <div
             key={label}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs"
             style={{
               background: 'var(--mocha-surface0)',
-              color:      'var(--mocha-subtext1)',
+              color,
             }}
           >
             <Icon size={13} aria-hidden="true" />
