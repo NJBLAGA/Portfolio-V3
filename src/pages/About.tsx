@@ -8,6 +8,7 @@ import {
   IconTerminal2,
   IconMountain,
   IconDeviceGamepad2,
+  IconDownload,
 } from '@tabler/icons-react'
 
 const HOBBIES = [
@@ -19,7 +20,7 @@ const HOBBIES = [
 
 const INFO = [
   { key: 'experience', value: '6+ years enterprise' },
-  { key: 'focus',      value: 'TypeScript · React · Node.js' },
+  { key: 'focus',      value: 'TypeScript · React · Node.js · AI' },
   { key: 'status',     value: 'open to work' },
 ]
 
@@ -66,7 +67,7 @@ export default function About() {
             Nathan Blaga
           </h1>
           <p
-            className="font-normal"
+            className="font-normal mb-2"
             style={{
               fontSize: 'clamp(1rem, 1.8vw, 1.35rem)',
               color:    'var(--mocha-mauve)',
@@ -74,6 +75,21 @@ export default function About() {
           >
             Full-Stack Developer
           </p>
+          <p className="text-xs md:text-sm mb-3" style={{ color: 'var(--mocha-overlay1)' }}>
+            // Sydney · Wollongong · open to work
+          </p>
+          <a
+            href="/nathan-blaga-cv-2026.pdf"
+            download
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs hover:opacity-80 transition-opacity self-start"
+            style={{
+              background: 'var(--mocha-surface0)',
+              color:      'var(--mocha-teal)',
+            }}
+          >
+            <IconDownload size={13} aria-hidden="true" />
+            download cv
+          </a>
         </div>
       </div>
 
@@ -83,12 +99,17 @@ export default function About() {
         style={{ color: 'var(--mocha-subtext1)' }}
       >
         <span className="hidden md:inline">
-          6+ years building production solutions across data engineering and system integration at enterprise scale.
-          Now focused on engineering scalable solutions on a modern JavaScript / TypeScript stack.
+          Hey, I'm Nathan — a full-stack developer based in the Sydney–Wollongong area. I've
+          spent 6+ years shipping production software at enterprise scale, mostly across data
+          engineering, marketing automation, and systems integration. These days I'm focused
+          on building with a modern JavaScript and TypeScript stack, and I'm genuinely excited
+          about where AI is taking software development. Outside of work you'll find me under
+          a barbell, out on a trail, or deep in a Linux config rabbit hole.
         </span>
         <span className="md:hidden">
-          6+ years building production solutions at enterprise scale.
-          Now focused on modern JavaScript / TypeScript.
+          Hey, I'm Nathan — a full-stack developer based in the Sydney–Wollongong area with
+          6+ years shipping production software at enterprise scale. Now building on a modern
+          JavaScript / TypeScript stack and keeping a close eye on AI.
         </span>
       </p>
 
@@ -106,8 +127,8 @@ export default function About() {
         ))}
       </div>
 
-      {/* Hobbies — each with its own accent colour */}
-      <div className="flex flex-wrap gap-3 mb-5">
+      {/* Hobbies */}
+      <div className="flex flex-wrap gap-3 mb-8">
         {HOBBIES.map(({ icon: Icon, label, color }) => (
           <div
             key={label}
@@ -123,10 +144,6 @@ export default function About() {
         ))}
       </div>
 
-      {/* // comment */}
-      <p className="text-xs md:text-sm" style={{ color: 'var(--mocha-overlay1)' }}>
-        // based in Sydney · open to work
-      </p>
 
     </section>
   )

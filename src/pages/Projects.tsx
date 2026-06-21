@@ -104,13 +104,6 @@ export default function Projects() {
             borderWidth: '0.5px',
           }}
         >
-          {/* Mobile: full-width banner on top */}
-          <ImageCarousel
-            images={RSVP_IMAGES}
-            className="h-40 w-full md:hidden"
-            onImageClick={(imgs, idx) => setModal({ images: imgs, index: idx })}
-          />
-
           <div className="p-4 md:p-6 flex flex-col">
             <h2
               className="font-semibold mb-2"
@@ -118,9 +111,16 @@ export default function Projects() {
             >
               RSVP Wedding App
             </h2>
-            <p className="text-sm leading-[1.65] mb-3" style={{ color: 'var(--mocha-subtext0)' }}>
-              Full-stack RSVP platform built for my wedding. Passwordless guest login,
-              row-level security, dietary &amp; song requests.
+            <p className="text-sm leading-[1.65] mb-1.5" style={{ color: 'var(--mocha-subtext0)' }}>
+              A custom full-stack RSVP platform built for our wedding day. Designed to handle
+              guest management, dietary preferences, song requests, and event scheduling — all
+              in one place. React and Tailwind CSS keep the frontend clean and responsive, while
+              a Node.js / Express API on Render handles the backend logic with Supabase powering
+              the database and guest-level security. Deployed on Netlify and currently live.
+            </p>
+            <p className="text-xs mb-3" style={{ color: 'var(--mocha-overlay1)' }}>
+              Demo Login Password:&nbsp;
+              <span style={{ color: 'var(--mocha-subtext1)' }}>Test-1</span>
             </p>
 
             {/* Tags with icons */}
@@ -134,12 +134,14 @@ export default function Projects() {
               <Tag label="Netlify"      color="var(--mocha-green)"  Icon={SiNetlify}     />
             </div>
 
-            {/* Desktop: carousel at 60% card width, centred, between tags and links */}
-            <div className="hidden md:flex justify-start mb-4">
-              <div className="rounded-lg overflow-hidden" style={{ width: '60%' }}>
+            {/* Carousel — below tags, above links — full width on mobile, 60% centred on desktop */}
+            <div className="flex justify-center mb-4">
+              <div
+                className="relative rounded-lg overflow-hidden w-full md:w-[60%]"
+              >
                 <ImageCarousel
                   images={RSVP_IMAGES}
-                  className="h-[280px] w-full"
+                  className="h-40 md:h-[280px] w-full"
                   onImageClick={(imgs, idx) => setModal({ images: imgs, index: idx })}
                 />
               </div>
@@ -190,7 +192,7 @@ export default function Projects() {
 
         {/* ── Project 2: Recipe Book (in progress) ─────────────────────── */}
         <article
-          className="rounded-[8px] overflow-hidden border flex flex-col md:flex-col"
+          className="rounded-[8px] overflow-hidden border"
           style={{
             background:  'var(--mocha-mantle)',
             borderColor: 'var(--mocha-surface0)',
@@ -199,10 +201,8 @@ export default function Projects() {
           }}
           aria-label="Recipe Book — in progress"
         >
-          <ThumbPlaceholder className="h-24 w-full md:hidden" />
-
-          <div className="p-4 md:p-6 flex-1">
-            <div className="flex items-center justify-between mb-1.5">
+          <div className="p-4 md:p-6 flex flex-col">
+            <div className="flex items-center justify-between mb-2">
               <h2
                 className="font-semibold"
                 style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.25rem)', color: 'var(--mocha-text)' }}
@@ -216,10 +216,31 @@ export default function Projects() {
                 in progress
               </span>
             </div>
-            <p className="text-sm leading-[1.65]" style={{ color: 'var(--mocha-subtext0)' }}>
+            <p className="text-sm leading-[1.65] mb-3" style={{ color: 'var(--mocha-subtext0)' }}>
               Full CRUD recipe manager with JWT + Google auth, image uploads,
               and a Prisma/Postgres backend.
             </p>
+
+            {/* Placeholder image area */}
+            <div className="flex justify-center mb-4">
+              <div className="w-full md:w-[60%] rounded-lg overflow-hidden">
+                <ThumbPlaceholder className="h-40 md:h-[280px] w-full" />
+              </div>
+            </div>
+
+            {/* Links row */}
+            <div
+              className="flex items-center gap-4 pt-3 border-t"
+              style={{ borderColor: 'var(--mocha-surface0)', borderTopWidth: '0.5px' }}
+            >
+              <span
+                className="flex items-center gap-1.5"
+                style={{ color: 'var(--mocha-overlay0)' }}
+              >
+                <IconBrandGithub size={15} />
+                <span className="text-xs md:text-sm">coming soon</span>
+              </span>
+            </div>
           </div>
         </article>
 

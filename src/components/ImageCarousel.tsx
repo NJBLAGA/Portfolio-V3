@@ -69,7 +69,7 @@ export default function ImageCarousel({ images, className = '', onImageClick }: 
       <button
         onClick={prev}
         aria-label="Previous image"
-        className="absolute left-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)]"
+        className="absolute left-5 top-1/2 -translate-y-1/2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 rounded p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)]"
         style={{ background: 'rgba(24,24,37,0.8)' }}
       >
         <IconChevronLeft size={16} style={{ color: 'var(--mocha-subtext1)' }} />
@@ -79,7 +79,7 @@ export default function ImageCarousel({ images, className = '', onImageClick }: 
       <button
         onClick={next}
         aria-label="Next image"
-        className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)]"
+        className="absolute right-5 top-1/2 -translate-y-1/2 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 rounded p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)]"
         style={{ background: 'rgba(24,24,37,0.8)' }}
       >
         <IconChevronRight size={16} style={{ color: 'var(--mocha-subtext1)' }} />

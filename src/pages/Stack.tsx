@@ -42,7 +42,7 @@ interface Category {
 const STACK: Category[] = [
   {
     category: 'languages',
-    color:    'var(--mocha-blue)',
+    color:    'var(--mocha-text)',
     items: [
       { name: 'JavaScript', color: 'var(--mocha-yellow)',  Icon: SiJavascript },
       { name: 'TypeScript', color: 'var(--mocha-blue)',    Icon: SiTypescript  },
@@ -52,7 +52,7 @@ const STACK: Category[] = [
   },
   {
     category: 'frontend',
-    color:    'var(--mocha-green)',
+    color:    'var(--mocha-text)',
     items: [
       { name: 'React',       color: 'var(--mocha-blue)',  Icon: SiReact       },
       { name: 'HTML',        color: 'var(--mocha-peach)', Icon: SiHtml5       },
@@ -62,7 +62,7 @@ const STACK: Category[] = [
   },
   {
     category: 'backend',
-    color:    'var(--mocha-peach)',
+    color:    'var(--mocha-text)',
     items: [
       { name: 'Node.js',        color: 'var(--mocha-green)', Icon: SiNodedotjs    },
       { name: 'Express.js',     color: 'var(--mocha-yellow)', Icon: SiExpress     },
@@ -72,7 +72,7 @@ const STACK: Category[] = [
   },
   {
     category: 'tools',
-    color:    'var(--mocha-yellow)',
+    color:    'var(--mocha-text)',
     items: [
       { name: 'Git',    color: 'var(--mocha-peach)',   Icon: SiGit    },
       { name: 'GitHub', color: 'var(--mocha-text)',    Icon: SiGithub },
@@ -81,7 +81,7 @@ const STACK: Category[] = [
   },
   {
     category: 'salesforce',
-    color:    'var(--mocha-red)',
+    color:    'var(--mocha-text)',
     items: [
       { name: 'Marketing Cloud', color: 'var(--mocha-blue)',  Icon: SiSalesforce },
       { name: 'Data Cloud',      color: 'var(--mocha-peach)', Icon: SiSalesforce },
