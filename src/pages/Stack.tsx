@@ -39,8 +39,11 @@ export default function Stack() {
   return (
     <section aria-label="Tech stack">
 
-      {/* $ cat stack.json — green command line */}
-      <p className="text-sm mb-5" style={{ color: 'var(--mocha-green)' }}>
+      {/* $ cat stack.json — 3x bigger on desktop */}
+      <p
+        className="text-sm md:text-[40px] mb-5 md:mb-8 font-normal"
+        style={{ color: 'var(--mocha-green)' }}
+      >
         $ cat stack.json
       </p>
 

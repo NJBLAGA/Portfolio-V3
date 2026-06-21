@@ -1,102 +1,100 @@
 /**
- * ImageCarousel — a simple 5-image slider for project cards.
+ * ImageCarousel — manual image slider for project cards.
  *
  * Features:
- *   - Prev / Next arrow buttons
+ *   - Prev / Next arrow buttons (visible on hover)
  *   - Dot indicator row
- *   - Auto-advances every 4 seconds, pauses on hover
- *   - Respects prefers-reduced-motion (no auto-advance)
+ *   - No auto-advance — user navigates manually
+ *   - onImageClick callback opens the image in a modal
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useCallback } from 'react'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 
-interface Props {
-  images: { src: string; alt: string }[]
-  /* className applied to the wrapping container so callers control sizing */
-  className?: string
+interface ImageItem {
+  src: string
+  alt: string
 }
 
-export default function ImageCarousel({ images, className = '' }: Props) {
-  const [current, setCurrent] = useState(0)
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+interface Props {
+  images: ImageItem[]
+  /* className applied to the outer container — callers control sizing */
+  className?: string
+  /* Called when the user clicks the current image (to open a modal) */
+  onImageClick?: (image: ImageItem) => void
+}
 
-  /* Check reduced-motion preference once on mount */
-  const reducedMotion =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+export default function ImageCarousel({ images, className = '', onImageClick }: Props) {
+  const [current, setCurrent] = useState(0)
 
   const next = useCallback(
-    () => setCurrent(i => (i + 1) % images.length),
+    (e: React.MouseEvent) => {
+      e.stopPropagation() // prevent triggering onImageClick
+      setCurrent(i => (i + 1) % images.length)
+    },
     [images.length],
   )
 
   const prev = useCallback(
-    () => setCurrent(i => (i - 1 + images.length) % images.length),
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      setCurrent(i => (i - 1 + images.length) % images.length)
+    },
     [images.length],
   )
 
-  /* Auto-advance every 4s unless user prefers reduced motion */
-  const startTimer = useCallback(() => {
-    if (reducedMotion) return
-    timerRef.current = setInterval(next, 4000)
-  }, [next, reducedMotion])
-
-  const stopTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current)
+  const handleDot = (e: React.MouseEvent, i: number) => {
+    e.stopPropagation()
+    setCurrent(i)
   }
-
-  useEffect(() => {
-    startTimer()
-    return stopTimer
-  }, [startTimer])
 
   return (
     <div
-      className={`relative overflow-hidden group ${className}`}
-      onMouseEnter={stopTimer}
-      onMouseLeave={startTimer}
+      className={`relative overflow-hidden group cursor-pointer ${className}`}
+      onClick={() => onImageClick?.(images[current])}
+      title="Click to enlarge"
     >
-      {/* Slide image */}
+      {/* Current slide image */}
       <img
-        key={current}
         src={images[current].src}
         alt={images[current].alt}
-        className="w-full h-full object-cover object-top transition-opacity duration-300"
+        className="w-full h-full object-cover object-top"
+        draggable={false}
       />
 
-      {/* Previous arrow — visible on hover */}
+      {/* Previous arrow */}
       <button
         onClick={prev}
         aria-label="Previous image"
-        className="absolute left-1.5 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded p-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)]"
-        style={{ background: 'rgba(24,24,37,0.75)' }}
+        className="absolute left-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)]"
+        style={{ background: 'rgba(24,24,37,0.8)' }}
       >
-        <IconChevronLeft size={14} style={{ color: 'var(--mocha-subtext1)' }} />
+        <IconChevronLeft size={16} style={{ color: 'var(--mocha-subtext1)' }} />
       </button>
 
-      {/* Next arrow — visible on hover */}
+      {/* Next arrow */}
       <button
         onClick={next}
         aria-label="Next image"
-        className="absolute right-1.5 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded p-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)]"
-        style={{ background: 'rgba(24,24,37,0.75)' }}
+        className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)]"
+        style={{ background: 'rgba(24,24,37,0.8)' }}
       >
-        <IconChevronRight size={14} style={{ color: 'var(--mocha-subtext1)' }} />
+        <IconChevronRight size={16} style={{ color: 'var(--mocha-subtext1)' }} />
       </button>
 
       {/* Dot indicators */}
-      <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex gap-1">
+      <div
+        className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5"
+        onClick={e => e.stopPropagation()}
+      >
         {images.map((_, i) => (
           <button
             key={i}
             aria-label={`Go to image ${i + 1}`}
-            onClick={() => setCurrent(i)}
-            className="w-1.5 h-1.5 rounded-full transition-colors duration-200 focus:outline-none"
+            onClick={e => handleDot(e, i)}
+            className="w-2 h-2 rounded-full transition-colors duration-200 focus:outline-none"
             style={{
-              background: i === current
-                ? 'var(--mocha-mauve)'
-                : 'var(--mocha-overlay1)',
+              background: i === current ? 'var(--mocha-mauve)' : 'var(--mocha-overlay1)',
             }}
           />
         ))}
