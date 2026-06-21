@@ -56,7 +56,7 @@ export default function Contact() {
 
       {/* $ ./contact.sh — 3x bigger on desktop */}
       <p
-        className="text-sm md:text-[40px] mb-4 md:mb-8 font-normal"
+        className="text-sm md:text-[28px] mb-4 md:mb-8 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ ./contact.sh

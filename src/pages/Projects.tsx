@@ -3,42 +3,64 @@
  * Prompt: $ ls ./projects
  *
  * Card layout:
- *   Mobile  — image banner on top (full-width, h-40), then content below. Unchanged.
- *   Desktop — single column: title → description → tags → carousel → links.
- *             Image is removed from the side and placed between tags and links.
- *             All carousel images are a consistent height (h-[300px]) on desktop.
+ *   Mobile  — image banner on top (h-40, full-width), then content below.
+ *   Desktop — single column: title → description → tags → carousel (60% card width) → links.
  *
- * Clicking any carousel image opens an ImageModal with manual rotate controls.
- * No auto-advance on the carousel.
+ * Clicking an image opens ImageModal which lets users navigate the full collection.
+ * No auto-advance on the carousel. Images use object-contain (no zoom/crop).
  */
 
 import { useState } from 'react'
+import type { ImageItem } from '../components/ImageCarousel'
 import ImageCarousel from '../components/ImageCarousel'
 import ImageModal    from '../components/ImageModal'
-import { IconBrandGithub, IconExternalLink, IconPhoto } from '@tabler/icons-react'
+import {
+  IconBrandGithub,
+  IconExternalLink,
+  IconPhoto,
+} from '@tabler/icons-react'
+import {
+  SiReact,
+  SiNodedotjs,
+  SiExpress,
+  SiSupabase,
+  SiTailwindcss,
+  SiNetlify,
+} from 'react-icons/si'
+import type { IconType } from 'react-icons'
 
 /* ── RSVP carousel images ───────────────────────────────────────────────── */
-const RSVP_IMAGES = [
-  { src: '/rsvp-1-home.png',        alt: 'RSVP app — home page'           },
-  { src: '/rsvp-5-home-scroll.png', alt: 'RSVP app — home scrolled'       },
-  { src: '/rsvp-3-schedule.png',    alt: 'RSVP app — wedding day schedule' },
-  { src: '/rsvp-4-faqs.png',        alt: 'RSVP app — FAQs'                },
-  { src: '/rsvp-screenshot.png',    alt: 'RSVP app — login page'          },
+const RSVP_IMAGES: ImageItem[] = [
+  { src: '/rsvp-s1-login.png',     alt: 'RSVP app — login page'          },
+  { src: '/rsvp-s2-home.png',      alt: 'RSVP app — home page'           },
+  { src: '/rsvp-s3-rsvp.png',      alt: 'RSVP app — RSVP list'          },
+  { src: '/rsvp-s4-rsvp-form.png', alt: 'RSVP app — edit RSVP form'     },
+  { src: '/rsvp-s5-schedule.png',  alt: 'RSVP app — wedding schedule'   },
+  { src: '/rsvp-s6-faqs.png',      alt: 'RSVP app — FAQs'               },
 ]
 
-/* ── Tag pill ───────────────────────────────────────────────────────────── */
-function Tag({ label, color }: { label: string; color: string }) {
+/* ── Tag pill with optional icon ────────────────────────────────────────── */
+function Tag({
+  label,
+  color,
+  Icon,
+}: {
+  label: string
+  color: string
+  Icon?: IconType | React.ComponentType<{ size?: number; color?: string }>
+}) {
   return (
     <span
-      className="text-xs md:text-sm px-2.5 py-0.5 rounded-[5px]"
+      className="flex items-center gap-1.5 text-xs md:text-sm px-2.5 py-0.5 rounded-[5px]"
       style={{ background: 'var(--mocha-surface0)', color }}
     >
+      {Icon && <Icon size={12} color={color} aria-hidden={true as never} />}
       {label}
     </span>
   )
 }
 
-/* ── Placeholder for projects without screenshots ───────────────────────── */
+/* ── Placeholder thumbnail for projects without screenshots ─────────────── */
 function ThumbPlaceholder({ className = '' }: { className?: string }) {
   return (
     <div
@@ -51,16 +73,21 @@ function ThumbPlaceholder({ className = '' }: { className?: string }) {
   )
 }
 
+/* ── Modal state type ───────────────────────────────────────────────────── */
+interface ModalState {
+  images: ImageItem[]
+  index:  number
+}
+
 export default function Projects() {
-  /* Modal state — null means closed */
-  const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null)
+  const [modal, setModal] = useState<ModalState | null>(null)
 
   return (
     <section aria-label="Projects">
 
-      {/* $ ls ./projects — 3x bigger on desktop */}
+      {/* $ ls ./projects */}
       <p
-        className="text-sm md:text-[40px] mb-5 md:mb-8 font-normal"
+        className="text-sm md:text-[28px] mb-5 md:mb-8 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ ls ./projects
@@ -68,7 +95,7 @@ export default function Projects() {
 
       <div className="flex flex-col gap-4 md:gap-6">
 
-        {/* ── Project 1: RSVP Wedding App ───────────────────────────────── */}
+        {/* ── Project 1: RSVP Wedding App ──────────────────────────────── */}
         <article
           className="rounded-[8px] overflow-hidden border"
           style={{
@@ -77,14 +104,13 @@ export default function Projects() {
             borderWidth: '0.5px',
           }}
         >
-          {/* ── MOBILE: image banner on top (unchanged) ── */}
+          {/* Mobile: full-width banner on top */}
           <ImageCarousel
             images={RSVP_IMAGES}
             className="h-40 w-full md:hidden"
-            onImageClick={setModalImage}
+            onImageClick={(imgs, idx) => setModal({ images: imgs, index: idx })}
           />
 
-          {/* Card content */}
           <div className="p-4 md:p-6 flex flex-col">
             <h2
               className="font-semibold mb-2"
@@ -92,26 +118,31 @@ export default function Projects() {
             >
               RSVP Wedding App
             </h2>
-            <p className="text-sm md:text-base leading-[1.65] mb-3" style={{ color: 'var(--mocha-subtext0)' }}>
+            <p className="text-sm leading-[1.65] mb-3" style={{ color: 'var(--mocha-subtext0)' }}>
               Full-stack RSVP platform built for my wedding. Passwordless guest login,
               row-level security, dietary &amp; song requests.
             </p>
 
-            {/* Tags */}
+            {/* Tags with icons */}
             <div className="flex flex-wrap gap-2 mb-4">
-              <Tag label="React"        color="var(--mocha-blue)"  />
-              <Tag label="Node/Express" color="var(--mocha-mauve)" />
-              <Tag label="Supabase"     color="var(--mocha-green)" />
-              <Tag label="Tailwind"     color="var(--mocha-peach)" />
+              <Tag label="React"        color="var(--mocha-blue)"   Icon={SiReact}       />
+              <Tag label="Node.js"      color="var(--mocha-green)"  Icon={SiNodedotjs}   />
+              <Tag label="Express.js"   color="var(--mocha-yellow)" Icon={SiExpress}     />
+              <Tag label="Supabase"     color="var(--mocha-teal)"   Icon={SiSupabase}    />
+              <Tag label="Tailwind CSS" color="var(--mocha-mauve)"  Icon={SiTailwindcss} />
+              <Tag label="Render"       color="var(--mocha-peach)"                       />
+              <Tag label="Netlify"      color="var(--mocha-green)"  Icon={SiNetlify}     />
             </div>
 
-            {/* ── DESKTOP: carousel between tags and links, full-width, consistent height ── */}
-            <div className="hidden md:block mb-4 rounded-lg overflow-hidden">
-              <ImageCarousel
-                images={RSVP_IMAGES}
-                className="h-[300px] w-full"
-                onImageClick={setModalImage}
-              />
+            {/* Desktop: carousel at 60% card width, centred, between tags and links */}
+            <div className="hidden md:flex justify-start mb-4">
+              <div className="rounded-lg overflow-hidden" style={{ width: '60%' }}>
+                <ImageCarousel
+                  images={RSVP_IMAGES}
+                  className="h-[280px] w-full"
+                  onImageClick={(imgs, idx) => setModal({ images: imgs, index: idx })}
+                />
+              </div>
             </div>
 
             {/* Links row */}
@@ -168,7 +199,6 @@ export default function Projects() {
           }}
           aria-label="Recipe Book — in progress"
         >
-          {/* Placeholder thumbnail — mobile top banner */}
           <ThumbPlaceholder className="h-24 w-full md:hidden" />
 
           <div className="p-4 md:p-6 flex-1">
@@ -186,7 +216,7 @@ export default function Projects() {
                 in progress
               </span>
             </div>
-            <p className="text-sm md:text-base leading-[1.65]" style={{ color: 'var(--mocha-subtext0)' }}>
+            <p className="text-sm leading-[1.65]" style={{ color: 'var(--mocha-subtext0)' }}>
               Full CRUD recipe manager with JWT + Google auth, image uploads,
               and a Prisma/Postgres backend.
             </p>
@@ -195,12 +225,12 @@ export default function Projects() {
 
       </div>
 
-      {/* Image modal — rendered at root so it overlays everything */}
-      {modalImage && (
+      {/* Image modal — overlays everything */}
+      {modal && (
         <ImageModal
-          src={modalImage.src}
-          alt={modalImage.alt}
-          onClose={() => setModalImage(null)}
+          images={modal.images}
+          initialIndex={modal.index}
+          onClose={() => setModal(null)}
         />
       )}
 

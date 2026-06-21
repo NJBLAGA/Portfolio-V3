@@ -2,31 +2,44 @@
  * ImageModal — full-screen lightbox for project screenshots.
  *
  * Features:
- *   - Click outside or press Escape to close
- *   - Rotate left / right buttons (manual, no auto-rotate)
- *   - Smooth CSS rotation transition
+ *   - Navigate through the full image collection with < > arrows
+ *   - Dot indicators centred at the bottom of the image
+ *   - Keyboard: Escape to close, ArrowLeft / ArrowRight to navigate
+ *   - Click outside the image to close
+ *   - No degree rotation (removed)
  */
 
 import { useEffect, useState, useCallback } from 'react'
-import { IconX, IconRotate, IconRotateClockwise } from '@tabler/icons-react'
+import { IconX, IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 
-interface Props {
+interface ImageItem {
   src: string
   alt: string
+}
+
+interface Props {
+  images: ImageItem[]
+  initialIndex: number
   onClose: () => void
 }
 
-export default function ImageModal({ src, alt, onClose }: Props) {
-  const [rotation, setRotation] = useState(0)
+export default function ImageModal({ images, initialIndex, onClose }: Props) {
+  const [current, setCurrent] = useState(initialIndex)
 
-  /* Close on Escape key */
+  const next = useCallback(() => setCurrent(i => (i + 1) % images.length), [images.length])
+  const prev = useCallback(() => setCurrent(i => (i - 1 + images.length) % images.length), [images.length])
+
   const handleKey = useCallback(
-    (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() },
-    [onClose],
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape')     onClose()
+      if (e.key === 'ArrowRight') next()
+      if (e.key === 'ArrowLeft')  prev()
+    },
+    [onClose, next, prev],
   )
+
   useEffect(() => {
     document.addEventListener('keydown', handleKey)
-    /* Prevent body scroll while modal is open */
     document.body.style.overflow = 'hidden'
     return () => {
       document.removeEventListener('keydown', handleKey)
@@ -34,70 +47,86 @@ export default function ImageModal({ src, alt, onClose }: Props) {
     }
   }, [handleKey])
 
-  const rotateLeft  = () => setRotation(r => (r - 90 + 360) % 360)
-  const rotateRight = () => setRotation(r => (r + 90) % 360)
-
   return (
-    /* Backdrop — click outside the image panel to close */
+    /* Backdrop — click outside to close */
     <div
       className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ background: 'rgba(17,17,27,0.92)' }}
+      style={{ background: 'rgba(17,17,27,0.94)' }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label={`Image: ${alt}`}
+      aria-label={`Image ${current + 1} of ${images.length}`}
     >
-      {/* Inner panel — stops click from propagating to backdrop */}
+      {/* Inner panel — stops click propagating to backdrop */}
       <div
-        className="relative flex flex-col items-center gap-4 p-4"
+        className="relative flex flex-col items-center"
         onClick={e => e.stopPropagation()}
       >
         {/* Close button */}
         <button
           onClick={onClose}
-          aria-label="Close image"
-          className="absolute -top-2 -right-2 z-10 rounded-full p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)]"
+          aria-label="Close"
+          className="absolute -top-10 right-0 z-10 rounded-full p-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] hover:opacity-80 transition-opacity"
           style={{ background: 'var(--mocha-surface0)' }}
         >
           <IconX size={18} style={{ color: 'var(--mocha-text)' }} />
         </button>
 
-        {/* Image — rotates on demand */}
-        <div className="overflow-hidden flex items-center justify-center" style={{ maxHeight: '80vh', maxWidth: '90vw' }}>
-          <img
-            src={src}
-            alt={alt}
-            style={{
-              maxHeight: '75vh',
-              maxWidth: '85vw',
-              objectFit: 'contain',
-              transform: `rotate(${rotation}deg)`,
-              transition: 'transform 0.35s ease',
-            }}
-          />
+        {/* Image + side nav arrows row */}
+        <div className="flex items-center gap-3">
+          {/* Left arrow */}
+          <button
+            onClick={prev}
+            aria-label="Previous image"
+            className="rounded-full p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] hover:opacity-80 transition-opacity"
+            style={{ background: 'var(--mocha-surface0)' }}
+          >
+            <IconChevronLeft size={22} style={{ color: 'var(--mocha-subtext1)' }} />
+          </button>
+
+          {/* Image */}
+          <div
+            className="flex items-center justify-center"
+            style={{ maxHeight: '80vh', maxWidth: '75vw' }}
+          >
+            <img
+              src={images[current].src}
+              alt={images[current].alt}
+              style={{
+                maxHeight: '80vh',
+                maxWidth:  '75vw',
+                objectFit: 'contain',
+              }}
+            />
+          </div>
+
+          {/* Right arrow */}
+          <button
+            onClick={next}
+            aria-label="Next image"
+            className="rounded-full p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] hover:opacity-80 transition-opacity"
+            style={{ background: 'var(--mocha-surface0)' }}
+          >
+            <IconChevronRight size={22} style={{ color: 'var(--mocha-subtext1)' }} />
+          </button>
         </div>
 
-        {/* Rotate controls */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={rotateLeft}
-            aria-label="Rotate left"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] hover:opacity-80 transition-opacity"
-            style={{ background: 'var(--mocha-surface0)', color: 'var(--mocha-subtext1)' }}
-          >
-            <IconRotate size={16} />
-            <span>Rotate left</span>
-          </button>
-          <button
-            onClick={rotateRight}
-            aria-label="Rotate right"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] hover:opacity-80 transition-opacity"
-            style={{ background: 'var(--mocha-surface0)', color: 'var(--mocha-subtext1)' }}
-          >
-            <IconRotateClockwise size={16} />
-            <span>Rotate right</span>
-          </button>
-        </div>
+        {/* Dot indicators — centred below the image */}
+        {images.length > 1 && (
+          <div className="flex gap-2 mt-4">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                aria-label={`Go to image ${i + 1}`}
+                onClick={() => setCurrent(i)}
+                className="w-2 h-2 rounded-full transition-colors duration-200 focus:outline-none"
+                style={{
+                  background: i === current ? 'var(--mocha-mauve)' : 'var(--mocha-overlay1)',
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

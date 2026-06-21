@@ -146,9 +146,9 @@ export default function TerminalShell() {
         {/* ── Body: sidebar + page content ───────────────────────────────── */}
         <div className="flex" style={{ background: 'var(--mocha-base)' }}>
 
-          {/* Sidebar — desktop only, 160px wide */}
+          {/* Sidebar — desktop only, 200px wide */}
           <aside
-            className="hidden md:flex flex-col w-[160px] shrink-0 px-5 py-6 border-r"
+            className="hidden md:flex flex-col w-[200px] shrink-0 px-5 py-6 border-r"
             style={{
               background:  'var(--mocha-mantle)',
               borderColor: 'var(--mocha-surface0)',

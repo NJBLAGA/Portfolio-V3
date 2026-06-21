@@ -5,13 +5,15 @@
  *   - Prev / Next arrow buttons (visible on hover)
  *   - Dot indicator row
  *   - No auto-advance — user navigates manually
- *   - onImageClick callback opens the image in a modal
+ *   - object-contain so images are never cropped or zoomed
+ *   - onImageClick passes the full images array + current index so the modal
+ *     can navigate the whole collection
  */
 
 import { useState, useCallback } from 'react'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 
-interface ImageItem {
+export interface ImageItem {
   src: string
   alt: string
 }
@@ -20,8 +22,8 @@ interface Props {
   images: ImageItem[]
   /* className applied to the outer container — callers control sizing */
   className?: string
-  /* Called when the user clicks the current image (to open a modal) */
-  onImageClick?: (image: ImageItem) => void
+  /* Called when user clicks the image — receives full array and current index */
+  onImageClick?: (images: ImageItem[], index: number) => void
 }
 
 export default function ImageCarousel({ images, className = '', onImageClick }: Props) {
@@ -29,7 +31,7 @@ export default function ImageCarousel({ images, className = '', onImageClick }: 
 
   const next = useCallback(
     (e: React.MouseEvent) => {
-      e.stopPropagation() // prevent triggering onImageClick
+      e.stopPropagation()
       setCurrent(i => (i + 1) % images.length)
     },
     [images.length],
@@ -51,14 +53,15 @@ export default function ImageCarousel({ images, className = '', onImageClick }: 
   return (
     <div
       className={`relative overflow-hidden group cursor-pointer ${className}`}
-      onClick={() => onImageClick?.(images[current])}
+      onClick={() => onImageClick?.(images, current)}
       title="Click to enlarge"
+      style={{ background: 'var(--mocha-base)' }}
     >
-      {/* Current slide image */}
+      {/* Current slide — object-contain so nothing is cropped */}
       <img
         src={images[current].src}
         alt={images[current].alt}
-        className="w-full h-full object-cover object-top"
+        className="w-full h-full object-contain"
         draggable={false}
       />
 
