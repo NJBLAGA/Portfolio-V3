@@ -41,7 +41,7 @@ export default function About() {
 
       {/* $ whoami */}
       <p
-        className="text-base md:text-[38px] mb-5 md:mb-7 font-normal"
+        className="text-xl md:text-[52px] mb-5 md:mb-7 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ whoami
