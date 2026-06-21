@@ -28,12 +28,12 @@ export default function About() {
     <section aria-label="About Nathan Blaga">
 
       {/* $ whoami — large on both mobile and desktop */}
-      <p
-        className="text-2xl md:text-[64px] mb-5 md:mb-7 font-normal"
+      <div
+        className="text-2xl md:text-[42px] mb-5 md:mb-7 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ whoami
-      </p>
+      </div>
 
       {/* Photo + name/role — top-aligned on desktop */}
       <div className="flex flex-col md:flex-row md:items-start gap-5 md:gap-7 mb-5 md:mb-6">

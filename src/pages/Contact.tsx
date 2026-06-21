@@ -55,12 +55,12 @@ export default function Contact() {
     <section aria-label="Contact">
 
       {/* $ ./contact.sh — 3x bigger on desktop */}
-      <p
+      <div
         className="text-sm md:text-[30px] mb-4 md:mb-8 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ ./contact.sh
-      </p>
+      </div>
 
       {/* Heading */}
       <h1 className="text-xl font-semibold mb-2" style={{ color: 'var(--mocha-text)' }}>

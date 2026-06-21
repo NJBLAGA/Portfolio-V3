@@ -86,12 +86,12 @@ export default function Projects() {
     <section aria-label="Projects">
 
       {/* $ ls ./projects */}
-      <p
+      <div
         className="text-sm md:text-[30px] mb-5 md:mb-8 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ ls ./projects
-      </p>
+      </div>
 
       <div className="flex flex-col gap-4 md:gap-6">
 
