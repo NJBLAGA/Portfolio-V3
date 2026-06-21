@@ -76,7 +76,7 @@ export default function About() {
             Full-Stack Developer
           </p>
           <p className="text-xs md:text-sm mb-3" style={{ color: 'var(--mocha-overlay1)' }}>
-            // Sydney · Wollongong · open to work
+            // open to work
           </p>
           <a
             href="/nathan-blaga-cv-2026.pdf"
@@ -99,17 +99,17 @@ export default function About() {
         style={{ color: 'var(--mocha-subtext1)' }}
       >
         <span className="hidden md:inline">
-          Hey, I'm Nathan — a full-stack developer based in the Sydney–Wollongong area. I've
-          spent 6+ years shipping production software at enterprise scale, mostly across data
-          engineering, marketing automation, and systems integration. These days I'm focused
-          on building with a modern JavaScript and TypeScript stack, and I'm genuinely excited
-          about where AI is taking software development. Outside of work you'll find me under
-          a barbell, out on a trail, or deep in a Linux config rabbit hole.
+          Hey, I'm Nathan — a full-stack developer with 6+ years shipping production software
+          at enterprise scale, mostly across data engineering, marketing automation, and systems
+          integration. These days I'm focused on building with a modern JavaScript and TypeScript
+          stack, and I'm genuinely excited about where AI is taking software development. Outside
+          of work you'll find me under a barbell, out on a trail, or deep in a Linux config
+          rabbit hole.
         </span>
         <span className="md:hidden">
-          Hey, I'm Nathan — a full-stack developer based in the Sydney–Wollongong area with
-          6+ years shipping production software at enterprise scale. Now building on a modern
-          JavaScript / TypeScript stack and keeping a close eye on AI.
+          Hey, I'm Nathan — a full-stack developer with 6+ years shipping production software
+          at enterprise scale. Now building on a modern JavaScript / TypeScript stack and
+          keeping a close eye on AI.
         </span>
       </p>
 

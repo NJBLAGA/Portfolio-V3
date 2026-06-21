@@ -6,7 +6,7 @@
     </linearGradient>
   </defs>
   <rect width="32" height="32" rx="6" fill="#1e1e2e"/>
-  <text x="16" y="21" text-anchor="middle" font-family="monospace, 'Courier New', Courier" font-weight="bold" font-size="10">
-    <tspan fill="#585b70">&lt;</tspan><tspan fill="url(#g)">NB</tspan><tspan fill="#585b70">&gt;</tspan>
+  <text x="16" y="22" text-anchor="middle" font-family="monospace, 'Courier New', Courier" font-weight="bold" font-size="13">
+    <tspan fill="#9399b2">&lt;</tspan><tspan fill="#a6e3a1">NB</tspan><tspan fill="#9399b2">&gt;</tspan>
   </text>
 </svg>
