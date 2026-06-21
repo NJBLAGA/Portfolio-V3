@@ -1,8 +1,8 @@
+/* Poppins must come before @import "tailwindcss" to satisfy CSS @import ordering rules */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 /* Tailwind v4 entry point */
 @import "tailwindcss";
-
-/* Poppins — weights 400 (body), 500 and 600 (headings/names) */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 /* ── Catppuccin Mocha palette as CSS custom properties ───────────────────────
    All colours are dark-theme only — no light mode required.
