@@ -24,7 +24,7 @@ function Tag({ label, color }: { label: string; color: string }) {
   )
 }
 
-/* ── Image placeholder (used until real screenshots are added) ──────────── */
+/* ── Image placeholder — shown when no screenshot is available ──────────── */
 function ThumbPlaceholder({ className = '' }: { className?: string }) {
   return (
     <div
@@ -34,6 +34,18 @@ function ThumbPlaceholder({ className = '' }: { className?: string }) {
     >
       <IconPhoto size={22} style={{ color: 'var(--mocha-overlay0)' }} />
     </div>
+  )
+}
+
+/* ── Project thumbnail with real screenshot ─────────────────────────────── */
+function RSVPThumb({ className = '' }: { className?: string }) {
+  return (
+    /* object-position: top ensures the app header/UI is visible, not the bottom */
+    <img
+      src="/rsvp-screenshot.png"
+      alt="RSVP Wedding App screenshot"
+      className={`object-cover object-top shrink-0 ${className}`}
+    />
   )
 }
 
@@ -58,7 +70,7 @@ export default function Projects() {
           }}
         >
           {/* Thumbnail — full-width top on mobile, fixed 130px left on desktop */}
-          <ThumbPlaceholder className="h-[72px] md:h-auto md:w-[130px] shrink-0" />
+          <RSVPThumb className="h-[72px] w-full md:h-auto md:w-[130px]" />
 
           {/* Card content */}
           <div className="p-3 flex-1 flex flex-col">

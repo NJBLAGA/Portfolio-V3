@@ -8,11 +8,8 @@
  *   3. Bio paragraph
  *   4. // based in Sydney · open to work comment line
  *
- * Photo: shows a headshot if /headshot.jpg exists in /public,
- * otherwise falls back to a user placeholder icon.
+ * Headshot is served from /public/headshot.jpg (copied from the handoff folder).
  */
-
-import { IconUser } from '@tabler/icons-react'
 
 export default function About() {
   return (
@@ -26,21 +23,20 @@ export default function About() {
       {/* Photo + name/role row */}
       <div className="flex items-center gap-4 mb-4">
 
-        {/* Photo — rounded square with surface border.
-            Replace /headshot.jpg in /public when the real asset is ready.
-            The img has an onError fallback that renders the placeholder icon. */}
+        {/* Headshot — rounded square, cropped to face with object-position top */}
         <div
-          className="shrink-0 flex items-center justify-center rounded-[10px] border"
+          className="shrink-0 rounded-[10px] border overflow-hidden"
           style={{
             width: '66px',
             height: '66px',
-            background:   'var(--mocha-surface0)',
-            borderColor:  'var(--mocha-surface1)',
+            borderColor: 'var(--mocha-surface1)',
           }}
-          aria-hidden="true"
         >
-          {/* Placeholder icon — swap this for <img> once headshot is added */}
-          <IconUser size={24} style={{ color: 'var(--mocha-overlay0)' }} />
+          <img
+            src="/headshot.jpg"
+            alt="Nathan Blaga"
+            className="w-full h-full object-cover object-top"
+          />
         </div>
 
         {/* Name + role stacked, vertically centred to photo */}
