@@ -29,7 +29,7 @@ export default function About() {
 
       {/* $ whoami — large on both mobile and desktop */}
       <div
-        className="text-2xl md:text-[42px] mb-5 md:mb-7 font-normal"
+        className="text-2xl md:text-[34px] mb-5 md:mb-7 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ whoami
