@@ -41,7 +41,7 @@ export default function About() {
 
       {/* $ whoami */}
       <p
-        className="text-sm md:text-[28px] mb-5 md:mb-7 font-normal"
+        className="text-sm md:text-[30px] mb-5 md:mb-7 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ whoami
@@ -54,8 +54,8 @@ export default function About() {
         <div
           className="shrink-0 rounded-xl border overflow-hidden self-start"
           style={{
-            width:       'clamp(72px, 12vw, 160px)',
-            height:      'clamp(72px, 12vw, 160px)',
+            width:       'clamp(84px, 13vw, 180px)',
+            height:      'clamp(84px, 13vw, 180px)',
             borderColor: 'var(--mocha-surface1)',
           }}
         >
@@ -71,7 +71,7 @@ export default function About() {
           <h1
             className="font-semibold leading-tight mb-1.5"
             style={{
-              fontSize: 'clamp(1.1rem, 2.2vw, 1.6rem)',
+              fontSize: 'clamp(1.25rem, 2.4vw, 1.85rem)',
               color:    'var(--mocha-text)',
             }}
           >
@@ -80,7 +80,7 @@ export default function About() {
           <p
             className="font-normal"
             style={{
-              fontSize: 'clamp(0.8rem, 1.4vw, 1rem)',
+              fontSize: 'clamp(0.9rem, 1.5vw, 1.15rem)',
               color:    'var(--mocha-mauve)',
             }}
           >

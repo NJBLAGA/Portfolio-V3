@@ -95,7 +95,7 @@ export default function Stack() {
 
       {/* $ cat stack.json */}
       <p
-        className="text-sm md:text-[28px] mb-5 md:mb-8 font-normal"
+        className="text-sm md:text-[30px] mb-5 md:mb-8 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ cat stack.json

@@ -87,7 +87,7 @@ export default function Projects() {
 
       {/* $ ls ./projects */}
       <p
-        className="text-sm md:text-[28px] mb-5 md:mb-8 font-normal"
+        className="text-sm md:text-[30px] mb-5 md:mb-8 font-normal"
         style={{ color: 'var(--mocha-green)' }}
       >
         $ ls ./projects
