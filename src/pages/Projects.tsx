@@ -3,20 +3,29 @@
  * Prompt: $ ls ./projects
  *
  * Single-column project cards.
- * Desktop: image thumbnail on the left, content on the right.
- * Mobile: image banner on top, content below (stack vertically).
+ * Desktop: image carousel on the left (~180px wide), content on the right.
+ * Mobile: carousel banner on top (full-width, fixed height), content below.
  *
- * Project 2 (Recipe Book) is "in progress" — rendered at 60% opacity
- * with no links until shipped.
+ * Project 2 (Recipe Book) is "in progress" — 60% opacity, no links.
  */
 
+import ImageCarousel from '../components/ImageCarousel'
 import { IconBrandGithub, IconExternalLink, IconPhoto } from '@tabler/icons-react'
 
-/* ── Tag pill component ─────────────────────────────────────────────────── */
+/* ── RSVP carousel images (5 real screenshots from the live app) ────────── */
+const RSVP_IMAGES = [
+  { src: '/rsvp-1-home.png',        alt: 'RSVP app — home page'           },
+  { src: '/rsvp-5-home-scroll.png', alt: 'RSVP app — home scrolled'       },
+  { src: '/rsvp-3-schedule.png',    alt: 'RSVP app — wedding day schedule' },
+  { src: '/rsvp-4-faqs.png',        alt: 'RSVP app — FAQs'                },
+  { src: '/rsvp-screenshot.png',    alt: 'RSVP app — login page'          },
+]
+
+/* ── Tag pill ───────────────────────────────────────────────────────────── */
 function Tag({ label, color }: { label: string; color: string }) {
   return (
     <span
-      className="text-[10px] px-2 py-0.5 rounded-[5px]"
+      className="text-xs px-2.5 py-0.5 rounded-[5px]"
       style={{ background: 'var(--mocha-surface0)', color }}
     >
       {label}
@@ -24,28 +33,16 @@ function Tag({ label, color }: { label: string; color: string }) {
   )
 }
 
-/* ── Image placeholder — shown when no screenshot is available ──────────── */
+/* ── Placeholder thumbnail for projects without screenshots ─────────────── */
 function ThumbPlaceholder({ className = '' }: { className?: string }) {
   return (
     <div
-      className={`flex items-center justify-center ${className}`}
+      className={`flex items-center justify-center shrink-0 ${className}`}
       style={{ background: 'var(--mocha-surface0)' }}
       aria-hidden="true"
     >
-      <IconPhoto size={22} style={{ color: 'var(--mocha-overlay0)' }} />
+      <IconPhoto size={26} style={{ color: 'var(--mocha-overlay0)' }} />
     </div>
-  )
-}
-
-/* ── Project thumbnail with real screenshot ─────────────────────────────── */
-function RSVPThumb({ className = '' }: { className?: string }) {
-  return (
-    /* object-position: top ensures the app header/UI is visible, not the bottom */
-    <img
-      src="/rsvp-screenshot.png"
-      alt="RSVP Wedding App screenshot"
-      className={`object-cover object-top shrink-0 ${className}`}
-    />
   )
 }
 
@@ -54,74 +51,76 @@ export default function Projects() {
     <section aria-label="Projects">
 
       {/* $ ls ./projects — green command line */}
-      <p className="text-xs mb-4" style={{ color: 'var(--mocha-green)' }}>
+      <p className="text-sm mb-5" style={{ color: 'var(--mocha-green)' }}>
         $ ls ./projects
       </p>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
 
         {/* ── Project 1: RSVP Wedding App ───────────────────────────────── */}
         <article
           className="rounded-[8px] overflow-hidden border flex flex-col md:flex-row"
           style={{
-            background:  'var(--mocha-mantle)',
-            borderColor: 'var(--mocha-surface0)',
-            borderWidth: '0.5px',
+            background:   'var(--mocha-mantle)',
+            borderColor:  'var(--mocha-surface0)',
+            borderWidth:  '0.5px',
           }}
         >
-          {/* Thumbnail — full-width top on mobile, fixed 130px left on desktop */}
-          <RSVPThumb className="h-[72px] w-full md:h-auto md:w-[130px]" />
+          {/* Image carousel —
+              Mobile: full-width, 160px tall banner across the top
+              Desktop: 180px wide column on the left, full card height */}
+          <ImageCarousel
+            images={RSVP_IMAGES}
+            className="h-40 w-full md:h-auto md:w-[180px] md:shrink-0"
+          />
 
           {/* Card content */}
-          <div className="p-3 flex-1 flex flex-col">
-            <h2 className="text-sm font-semibold mb-1" style={{ color: 'var(--mocha-text)' }}>
+          <div className="p-4 flex-1 flex flex-col">
+            <h2 className="text-base font-semibold mb-1.5" style={{ color: 'var(--mocha-text)' }}>
               RSVP Wedding App
             </h2>
-            <p className="text-[11px] leading-[1.6] mb-2" style={{ color: 'var(--mocha-subtext0)' }}>
+            <p className="text-sm leading-[1.65] mb-3" style={{ color: 'var(--mocha-subtext0)' }}>
               Full-stack RSVP platform built for my wedding. Passwordless guest login,
               row-level security, dietary &amp; song requests.
             </p>
 
             {/* Tech tags */}
-            <div className="flex flex-wrap gap-1.5 mb-3">
-              <Tag label="React"       color="var(--mocha-blue)"  />
+            <div className="flex flex-wrap gap-2 mb-3">
+              <Tag label="React"        color="var(--mocha-blue)"  />
               <Tag label="Node/Express" color="var(--mocha-mauve)" />
-              <Tag label="Supabase"    color="var(--mocha-green)" />
-              <Tag label="Tailwind"    color="var(--mocha-peach)" />
+              <Tag label="Supabase"     color="var(--mocha-green)" />
+              <Tag label="Tailwind"     color="var(--mocha-peach)" />
             </div>
 
-            {/* Links row — separated from tags by a hairline */}
+            {/* Links row */}
             <div
-              className="flex items-center gap-3 pt-2 mt-auto border-t"
+              className="flex items-center gap-4 pt-3 mt-auto border-t"
               style={{ borderColor: 'var(--mocha-surface0)', borderTopWidth: '0.5px' }}
             >
-              {/* GitHub web repo */}
               <a
                 href="https://github.com/NJBLAGA/rsvp-wedding-frontend"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-[11px] hover:opacity-80 transition-opacity focus:outline-none focus-visible:underline"
+                className="flex items-center gap-1.5 text-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:underline"
                 style={{ color: 'var(--mocha-overlay1)' }}
                 aria-label="GitHub — frontend repo"
               >
-                <IconBrandGithub size={13} />
-                <span className="text-[9px]">web</span>
+                <IconBrandGithub size={15} />
+                <span className="text-xs">web</span>
               </a>
 
-              {/* GitHub api repo */}
               <a
                 href="https://github.com/NJBLAGA/rsvp-wedding-backend"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-[11px] hover:opacity-80 transition-opacity focus:outline-none focus-visible:underline"
+                className="flex items-center gap-1.5 text-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:underline"
                 style={{ color: 'var(--mocha-overlay1)' }}
                 aria-label="GitHub — backend repo"
               >
-                <IconBrandGithub size={13} />
-                <span className="text-[9px]">api</span>
+                <IconBrandGithub size={15} />
+                <span className="text-xs">api</span>
               </a>
 
-              {/* Live site link — mauve, pushed to the right */}
               <a
                 href="https://blagasaga2026.rsvp/"
                 target="_blank"
@@ -130,7 +129,7 @@ export default function Projects() {
                 style={{ color: 'var(--mocha-mauve)' }}
                 aria-label="Live site"
               >
-                <IconExternalLink size={13} />
+                <IconExternalLink size={15} />
               </a>
             </div>
           </div>
@@ -140,26 +139,22 @@ export default function Projects() {
         <article
           className="rounded-[8px] overflow-hidden border flex flex-col md:flex-row"
           style={{
-            background:  'var(--mocha-mantle)',
-            borderColor: 'var(--mocha-surface0)',
-            borderWidth: '0.5px',
-            opacity: 0.6, /* visually de-emphasised until shipped */
+            background:   'var(--mocha-mantle)',
+            borderColor:  'var(--mocha-surface0)',
+            borderWidth:  '0.5px',
+            opacity:      0.6,
           }}
           aria-label="Recipe Book — in progress"
         >
-          {/* Thumbnail */}
-          <ThumbPlaceholder className="h-[72px] md:h-auto md:w-[130px] shrink-0" />
+          <ThumbPlaceholder className="h-24 w-full md:h-auto md:w-[180px]" />
 
-          {/* Card content */}
-          <div className="p-3 flex-1">
-            {/* Title row with "in progress" badge */}
-            <div className="flex items-center justify-between mb-1">
-              <h2 className="text-sm font-semibold" style={{ color: 'var(--mocha-text)' }}>
+          <div className="p-4 flex-1">
+            <div className="flex items-center justify-between mb-1.5">
+              <h2 className="text-base font-semibold" style={{ color: 'var(--mocha-text)' }}>
                 Recipe Book
               </h2>
-              {/* Yellow bordered badge */}
               <span
-                className="text-[9px] px-1.5 py-0.5 rounded border"
+                className="text-[10px] px-2 py-0.5 rounded border"
                 style={{
                   color:       'var(--mocha-yellow)',
                   borderColor: 'var(--mocha-surface1)',
@@ -168,12 +163,10 @@ export default function Projects() {
                 in progress
               </span>
             </div>
-
-            <p className="text-[11px] leading-[1.6]" style={{ color: 'var(--mocha-subtext0)' }}>
+            <p className="text-sm leading-[1.65]" style={{ color: 'var(--mocha-subtext0)' }}>
               Full CRUD recipe manager with JWT + Google auth, image uploads,
               and a Prisma/Postgres backend.
             </p>
-            {/* No links until shipped */}
           </div>
         </article>
 

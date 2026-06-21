@@ -12,7 +12,6 @@
  *   salesforce → red   (#f38ba8)
  */
 
-/* ── Category + its tags ────────────────────────────────────────────────── */
 const STACK: { category: string; color: string; tags: string[] }[] = [
   {
     category: 'languages',
@@ -41,24 +40,24 @@ export default function Stack() {
     <section aria-label="Tech stack">
 
       {/* $ cat stack.json — green command line */}
-      <p className="text-xs mb-4" style={{ color: 'var(--mocha-green)' }}>
+      <p className="text-sm mb-5" style={{ color: 'var(--mocha-green)' }}>
         $ cat stack.json
       </p>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-5">
         {STACK.map(({ category, color, tags }) => (
           <div key={category}>
             {/* Category label in its accent colour */}
-            <p className="text-[10px] mb-2" style={{ color }}>
+            <p className="text-xs mb-2.5" style={{ color }}>
               {category}
             </p>
 
             {/* Wrapping row of pills */}
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {tags.map(tag => (
                 <span
                   key={tag}
-                  className="text-[11px] px-2.5 py-0.5 rounded-[5px]"
+                  className="text-sm px-3 py-1 rounded-[5px]"
                   style={{
                     background: 'var(--mocha-surface0)',
                     color,

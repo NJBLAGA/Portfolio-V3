@@ -11,6 +11,11 @@
  *
  * On mobile (<md) the sidebar is hidden and replaced by a hamburger
  * toggle in the title bar. Opening the menu renders a full-panel overlay.
+ *
+ * Sizing notes:
+ *   - max-w-5xl gives comfortable breathing room on desktop/tablet
+ *   - Sidebar is 160px wide (up from the original 124px mock)
+ *   - Main content has generous padding (p-6 mobile, p-8 desktop)
  */
 
 import { useState } from 'react'
@@ -34,16 +39,15 @@ const NAV_ITEMS = [
 
 /* ── Social links (sidebar + mobile menu) ───────────────────────────────── */
 const SOCIALS = [
-  { icon: IconBrandGithub,  href: 'https://github.com/NJBLAGA',                   label: 'GitHub'   },
-  { icon: IconBrandLinkedin,href: 'https://linkedin.com/in/nathanblaga',           label: 'LinkedIn' },
-  { icon: IconMail,         href: 'mailto:nathanblaga90@gmail.com',                label: 'Email'    },
-  { icon: IconPhone,        href: 'tel:+61436190824',                              label: 'Phone'    },
+  { icon: IconBrandGithub,   href: 'https://github.com/NJBLAGA',          label: 'GitHub'   },
+  { icon: IconBrandLinkedin, href: 'https://linkedin.com/in/nathanblaga',  label: 'LinkedIn' },
+  { icon: IconMail,          href: 'mailto:nathanblaga90@gmail.com',       label: 'Email'    },
+  { icon: IconPhone,         href: 'tel:+61436190824',                     label: 'Phone'    },
 ]
 
 /* ── Helper: derive the path label shown in the title bar ───────────────── */
 function useTitleBarPath(): string {
   const { pathname } = useLocation()
-  /* map /about → /about, root → /about (default redirect) */
   return pathname === '/' ? '/about' : pathname
 }
 
@@ -52,63 +56,62 @@ export default function TerminalShell() {
   const titlePath = useTitleBarPath()
 
   return (
-    /* Full-viewport container, centred with a max-width for very wide screens */
-    <div className="min-h-screen flex items-start justify-center" style={{ background: 'var(--mocha-base)' }}>
+    /* Full-viewport container, centred — max-w-5xl for a comfortable desktop width */
+    <div className="min-h-screen flex items-start justify-center px-2 sm:px-4" style={{ background: 'var(--mocha-base)' }}>
       <div
-        className="w-full max-w-4xl rounded-xl overflow-hidden border"
-        style={{ borderColor: 'var(--mocha-surface0)', marginTop: '2rem', marginBottom: '2rem' }}
+        className="w-full max-w-5xl rounded-xl overflow-hidden border my-6 sm:my-8"
+        style={{ borderColor: 'var(--mocha-surface0)' }}
       >
 
         {/* ── Title bar ──────────────────────────────────────────────────── */}
         <div
-          className="flex items-center gap-2 px-3 py-2"
+          className="flex items-center gap-2 px-4 py-2.5"
           style={{ background: 'var(--mocha-mantle)' }}
         >
           {/* Traffic-light dots */}
-          <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'var(--mocha-red)' }}   aria-hidden="true" />
-          <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'var(--mocha-yellow)' }} aria-hidden="true" />
-          <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'var(--mocha-green)' }}  aria-hidden="true" />
+          <span className="w-3 h-3 rounded-full" style={{ background: 'var(--mocha-red)' }}    aria-hidden="true" />
+          <span className="w-3 h-3 rounded-full" style={{ background: 'var(--mocha-yellow)' }} aria-hidden="true" />
+          <span className="w-3 h-3 rounded-full" style={{ background: 'var(--mocha-green)' }}  aria-hidden="true" />
 
-          {/* Path label — hidden on mobile when menu is open (replaced by ~/nathan) */}
+          {/* Path / brand label */}
           {menuOpen ? (
-            /* Show ~/nathan in the title bar while mobile menu is open */
-            <span className="ml-2 text-[9px]" style={{ color: 'var(--mocha-overlay1)' }}>
+            <span className="ml-3 text-xs" style={{ color: 'var(--mocha-overlay1)' }}>
               ~/nathan
             </span>
           ) : (
-            <span className="ml-2 text-[10px]" style={{ color: 'var(--mocha-overlay1)' }}>
+            <span className="ml-3 text-xs" style={{ color: 'var(--mocha-overlay1)' }}>
               {titlePath}
             </span>
           )}
 
-          {/* Hamburger / close — visible only on mobile */}
+          {/* Hamburger / close — mobile only */}
           <button
-            className="ml-auto md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] rounded"
+            className="ml-auto md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] rounded p-1"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             onClick={() => setMenuOpen(v => !v)}
           >
             {menuOpen
-              ? <IconX size={16} style={{ color: 'var(--mocha-mauve)' }} />
-              : <IconMenu2 size={14} style={{ color: 'var(--mocha-overlay1)' }} />
+              ? <IconX    size={18} style={{ color: 'var(--mocha-mauve)' }} />
+              : <IconMenu2 size={18} style={{ color: 'var(--mocha-overlay1)' }} />
             }
           </button>
         </div>
 
-        {/* ── Mobile nav panel (full-panel overlay, mantle bg) ───────────── */}
+        {/* ── Mobile nav panel ───────────────────────────────────────────── */}
         {menuOpen && (
           <div
-            className="md:hidden px-4 py-4"
+            className="md:hidden px-5 py-5"
             style={{ background: 'var(--mocha-mantle)' }}
           >
             {/* Nav items — large and tappable */}
             <nav aria-label="Mobile navigation">
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-5">
                 {NAV_ITEMS.map(({ label, to }) => (
                   <li key={to}>
                     <NavLink
                       to={to}
                       onClick={() => setMenuOpen(false)}
-                      className="text-sm focus:outline-none focus-visible:underline"
+                      className="text-base focus:outline-none focus-visible:underline"
                       style={({ isActive }) => ({
                         color: isActive ? 'var(--mocha-mauve)' : 'var(--mocha-text)',
                       })}
@@ -120,11 +123,11 @@ export default function TerminalShell() {
               </ul>
             </nav>
 
-            {/* Divider */}
+            {/* Hairline divider */}
             <div className="my-5 border-t" style={{ borderColor: 'var(--mocha-surface0)' }} />
 
             {/* Social icons */}
-            <div className="flex gap-5">
+            <div className="flex gap-6">
               {SOCIALS.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -133,7 +136,7 @@ export default function TerminalShell() {
                   className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] rounded"
                   style={{ color: 'var(--mocha-overlay1)' }}
                 >
-                  <Icon size={18} />
+                  <Icon size={20} />
                 </a>
               ))}
             </div>
@@ -143,17 +146,17 @@ export default function TerminalShell() {
         {/* ── Body: sidebar + page content ───────────────────────────────── */}
         <div className="flex" style={{ background: 'var(--mocha-base)' }}>
 
-          {/* Sidebar — desktop only, fixed ~124px wide */}
+          {/* Sidebar — desktop only, 160px wide */}
           <aside
-            className="hidden md:flex flex-col w-[124px] shrink-0 p-4 border-r"
+            className="hidden md:flex flex-col w-[160px] shrink-0 px-5 py-6 border-r"
             style={{
-              background:   'var(--mocha-mantle)',
-              borderColor:  'var(--mocha-surface0)',
+              background:  'var(--mocha-mantle)',
+              borderColor: 'var(--mocha-surface0)',
             }}
           >
             {/* ~/nathan wordmark */}
             <span
-              className="text-xs font-semibold mb-4"
+              className="text-sm font-semibold mb-6"
               style={{ color: 'var(--mocha-mauve)' }}
             >
               ~/nathan
@@ -161,12 +164,12 @@ export default function TerminalShell() {
 
             {/* Vertical nav list */}
             <nav aria-label="Main navigation">
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col gap-4">
                 {NAV_ITEMS.map(({ label, to }) => (
                   <li key={to}>
                     <NavLink
                       to={to}
-                      className="text-[11px] focus:outline-none focus-visible:underline transition-colors duration-150"
+                      className="text-sm focus:outline-none focus-visible:underline transition-colors duration-150"
                       style={({ isActive }) => ({
                         color: isActive ? 'var(--mocha-mauve)' : 'var(--mocha-overlay1)',
                       })}
@@ -178,8 +181,8 @@ export default function TerminalShell() {
               </ul>
             </nav>
 
-            {/* Social icon row */}
-            <div className="mt-auto pt-6 flex gap-3">
+            {/* Social icon row — pushed to bottom */}
+            <div className="mt-auto pt-6 flex gap-3 flex-wrap">
               {SOCIALS.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -188,14 +191,14 @@ export default function TerminalShell() {
                   className="hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] rounded"
                   style={{ color: 'var(--mocha-overlay1)' }}
                 >
-                  <Icon size={15} />
+                  <Icon size={18} />
                 </a>
               ))}
             </div>
           </aside>
 
-          {/* Page content rendered by the active route */}
-          <main className="flex-1 min-w-0 p-5 md:p-5">
+          {/* Page content */}
+          <main className="flex-1 min-w-0 p-6 md:p-8">
             <Outlet />
           </main>
         </div>
