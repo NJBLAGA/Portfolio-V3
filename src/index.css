@@ -1,0 +1,56 @@
+/* Tailwind v4 entry point */
+@import "tailwindcss";
+
+/* Poppins — weights 400 (body), 500 and 600 (headings/names) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* ── Catppuccin Mocha palette as CSS custom properties ───────────────────────
+   All colours are dark-theme only — no light mode required.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* backgrounds */
+  --mocha-base:     #1e1e2e; /* main page background */
+  --mocha-mantle:   #181825; /* sidebar, title bar, card backgrounds */
+  --mocha-crust:    #11111b; /* deepest background (reserved) */
+
+  /* surfaces */
+  --mocha-surface0: #313244; /* tag/pill backgrounds, photo placeholder */
+  --mocha-surface1: #45475a; /* borders on raised elements */
+  --mocha-surface2: #585b70;
+
+  /* overlays / muted text */
+  --mocha-overlay0: #6c7086; /* placeholder icon colour, faint text */
+  --mocha-overlay1: #7f849c; /* muted text, inactive nav, path text */
+
+  /* text */
+  --mocha-subtext0: #a6adc8; /* secondary body text */
+  --mocha-subtext1: #bac2de; /* primary body / bio text */
+  --mocha-text:     #cdd6f4; /* headings, name, strong text */
+
+  /* accents */
+  --mocha-mauve:  #cba6f7; /* primary accent — active nav, role, links */
+  --mocha-blue:   #89b4fa; /* languages tags, LinkedIn icon */
+  --mocha-green:  #a6e3a1; /* $ command text, frontend tags, GitHub icon */
+  --mocha-peach:  #fab387; /* backend tags, phone icon */
+  --mocha-pink:   #f5c2e7; /* category labels (subtle) */
+  --mocha-red:    #f38ba8; /* Salesforce tags, traffic-light red dot */
+  --mocha-yellow: #f9e2af; /* "in progress" badge, traffic-light yellow dot */
+}
+
+/* Base reset — Poppins default, dark background */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--mocha-base);
+  color: var(--mocha-text);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Respect reduced-motion preference for all transitions */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
