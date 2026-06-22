@@ -223,11 +223,12 @@ function ProjectCard({ project, onImageClick }: ProjectCardProps) {
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto hover:opacity-80 transition-opacity focus:outline-none focus-visible:underline"
+              className="ml-auto flex items-center gap-1.5 hover:opacity-80 transition-opacity focus:outline-none focus-visible:underline"
               style={{ color: 'var(--mocha-mauve)' }}
               aria-label="Live site"
             >
               <IconExternalLink size={15} />
+              <span className="text-xs md:text-sm">Live</span>
             </a>
           )}
         </div>
