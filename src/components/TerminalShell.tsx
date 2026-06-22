@@ -132,6 +132,8 @@ export default function TerminalShell() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] rounded"
                   style={{ color: 'var(--mocha-overlay1)' }}
@@ -187,6 +189,8 @@ export default function TerminalShell() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mocha-mauve)] rounded"
                   style={{ color: 'var(--mocha-overlay1)' }}
