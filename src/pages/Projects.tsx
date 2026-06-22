@@ -47,11 +47,10 @@ const PROJECTS: ProjectData[] = [
   {
     title: 'RSVP Wedding App',
     description:
-      'A custom full-stack RSVP platform built for our wedding day. Designed to handle ' +
-      'guest management, dietary preferences, song requests, and event scheduling — all ' +
-      'in one place. React and Tailwind CSS keep the frontend clean and responsive, while ' +
-      'a Node.js / Express API on Render handles the backend logic with Supabase powering ' +
-      'the database and guest-level security. Deployed on Netlify and currently live.',
+      'Built for my own wedding — a full-stack RSVP platform designed to replace the usual ' +
+      'third-party tools with something personal and purpose-built. Guests can log in, manage ' +
+      'their RSVP, set dietary preferences, submit song requests, and view the event schedule ' +
+      'and FAQs, all in one place. Currently live.',
     demoPassword: 'Test-1',
     tags: [
       { label: 'React',        color: 'var(--mocha-blue)',   Icon: SiReact       },
@@ -79,8 +78,10 @@ const PROJECTS: ProjectData[] = [
   {
     title: 'Recipe Book',
     description:
-      'Full CRUD recipe manager with JWT + Google auth, image uploads, ' +
-      'and a Prisma/Postgres backend.',
+      'A personal recipe manager for storing, organising, and browsing your own collection of ' +
+      'recipes. Create and edit recipes with photos, filter by category, and access everything ' +
+      'from any device. Comes with a built-in pantry management system that tracks your stock ' +
+      'levels and automatically builds a shopping list based on what\'s running low.',
     status: 'in progress',
     tags:   [],
     images: [],
@@ -163,9 +164,8 @@ function ProjectCard({ project, onImageClick }: ProjectCardProps) {
 
         {/* Demo password */}
         {demoPassword && (
-          <p className="text-xs mb-3" style={{ color: 'var(--mocha-overlay1)' }}>
-            Demo Login Password:&nbsp;
-            <span style={{ color: 'var(--mocha-subtext1)' }}>{demoPassword}</span>
+          <p className="text-xs mb-3" style={{ color: 'var(--mocha-subtext1)' }}>
+            Demo Login Password:&nbsp;{demoPassword}
           </p>
         )}
 

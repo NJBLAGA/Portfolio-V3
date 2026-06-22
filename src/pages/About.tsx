@@ -19,7 +19,7 @@ const HOBBIES = [
 ]
 
 const INFO = [
-  { key: 'experience', value: '6+ years enterprise' },
+  { key: 'experience', value: 'over 6 years' },
   { key: 'focus',      value: 'TypeScript · React · Node.js · AI' },
   { key: 'status',     value: 'open to work' },
 ]
@@ -98,19 +98,12 @@ export default function About() {
         className="text-sm leading-[1.75] mb-5"
         style={{ color: 'var(--mocha-subtext1)' }}
       >
-        <span className="hidden md:inline">
-          Hey, I'm Nathan — a full-stack developer with 6+ years shipping production software
-          at enterprise scale, mostly across data engineering, marketing automation, and systems
-          integration. These days I'm focused on building with a modern JavaScript and TypeScript
-          stack, and I'm genuinely excited about where AI is taking software development. Outside
-          of work you'll find me under a barbell, out on a trail, or deep in a Linux config
-          rabbit hole.
-        </span>
-        <span className="md:hidden">
-          Hey, I'm Nathan — a full-stack developer with 6+ years shipping production software
-          at enterprise scale. Now building on a modern JavaScript / TypeScript stack and
-          keeping a close eye on AI.
-        </span>
+        Hey, I'm Nathan — a full-stack developer with over 6 years of experience building and
+        shipping production-grade solutions. I've worked across data engineering, marketing
+        automation, and systems integration, seeing projects through from design all the way to
+        deployment. These days I'm focused on a modern JavaScript and TypeScript stack, and I'm
+        excited about where AI is taking software development. Outside of work you'll find me
+        under a barbell, out on a trail, or deep in a Linux config rabbit hole.
       </p>
 
       {/* Info section */}
