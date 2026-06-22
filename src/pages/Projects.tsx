@@ -158,20 +158,20 @@ function ProjectCard({ project, onImageClick }: ProjectCardProps) {
         </div>
 
         {/* Description */}
-        <p className="text-sm leading-[1.65] mb-1.5" style={{ color: 'var(--mocha-subtext0)' }}>
+        <p className="text-sm leading-[1.65] mb-3" style={{ color: 'var(--mocha-subtext0)' }}>
           {description}
         </p>
 
         {/* Demo password */}
         {demoPassword && (
-          <p className="text-xs mb-3" style={{ color: 'var(--mocha-subtext1)' }}>
+          <p className="text-xs mb-4" style={{ color: 'var(--mocha-subtext1)' }}>
             Demo Login Password:&nbsp;{demoPassword}
           </p>
         )}
 
         {/* Tags */}
         {tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-5">
             {tags.map(tag => <Tag key={tag.label} {...tag} />)}
           </div>
         )}

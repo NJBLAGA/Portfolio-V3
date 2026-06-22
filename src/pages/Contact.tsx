@@ -69,7 +69,7 @@ export default function Contact() {
 
       {/* Intro */}
       <p className="text-sm leading-[1.7] mb-6" style={{ color: 'var(--mocha-subtext1)' }}>
-        Open to full-stack and backend roles. Fastest way to reach me is email or phone.
+        Open to new opportunities and always happy to have a conversation.
       </p>
 
       {/* Contact cards */}
