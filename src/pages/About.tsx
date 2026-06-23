@@ -19,7 +19,7 @@ const HOBBIES = [
 ]
 
 const INFO = [
-  { key: 'experience', value: 'over 6 years' },
+  { key: 'experience', value: 'over 5 years' },
   { key: 'focus',      value: 'TypeScript · React · Node.js · AI' },
   { key: 'status',     value: 'open to work' },
 ]
@@ -98,7 +98,7 @@ export default function About() {
         className="text-sm leading-[1.75] mb-5"
         style={{ color: 'var(--mocha-subtext1)' }}
       >
-        Hey, I'm Nathan — a full-stack developer with over 6 years of experience building and
+        Hey, I'm Nathan — a full-stack developer with over 5 years of experience building and
         shipping production-grade solutions. I've worked across data engineering, marketing
         automation, and systems integration, seeing projects through from design all the way to
         deployment. These days I'm focused on a modern JavaScript and TypeScript stack, and I'm
