@@ -98,7 +98,7 @@ export default function About() {
         className="text-sm leading-[1.75] mb-5"
         style={{ color: 'var(--mocha-subtext1)' }}
       >
-Hey, I'm Nathan. I've spent the last 5+ years building software in the marketing technology and data space, working on everything from integrations and automations to production systems. These days I'm focused on modern JavaScript, TypeScript, and full-stack development, and I'm excited about how AI is reshaping software engineering. Outside of work you'll find me under a barbell, out on a trail, or deep in a Linux config rabbit hole.
+Hey, I'm Nathan. I've spent the last 5+ years building software in the marketing technology and data space, working across integrations, automation, and production systems. I'm focused on building full-stack applications using modern JavaScript and TypeScript, while exploring how AI is shaping software development. Outside of work you'll find me under a barbell, out on a trail, or deep in a Linux config rabbit hole.
       </p>
 
       {/* Info section */}
