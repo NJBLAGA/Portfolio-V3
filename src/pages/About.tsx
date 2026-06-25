@@ -20,7 +20,7 @@ const HOBBIES = [
 
 const INFO = [
   { key: 'experience', value: 'over 5 years' },
-  { key: 'focus',      value: 'TypeScript · React · Node.js · AI' },
+  { key: 'focus',      value: 'JavaScript · TypeScript · React · Node.js · AI' },
   { key: 'status',     value: 'open to work' },
 ]
 

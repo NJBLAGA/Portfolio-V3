@@ -50,7 +50,7 @@ const PROJECTS: ProjectData[] = [
       'Built for my own wedding — a full-stack RSVP platform designed to replace the usual ' +
       'third-party tools with something personal and purpose-built. Guests can log in, manage ' +
       'their RSVP, set dietary preferences, submit song requests, and view the event schedule ' +
-      'and FAQs, all in one place. Currently live.',
+      'and FAQs, all in one place.',
     demoPassword: 'Test-1',
     tags: [
       { label: 'React',        color: 'var(--mocha-blue)',   Icon: SiReact       },
