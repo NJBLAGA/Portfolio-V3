@@ -79,7 +79,7 @@ export default function About() {
             // open to work
           </p>
           <a
-            href="/nathan-blaga-cv-2026.pdf"
+            href="/Nathan Blaga_CV_2026.pdf"
             download
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs hover:opacity-80 transition-opacity self-start"
             style={{
