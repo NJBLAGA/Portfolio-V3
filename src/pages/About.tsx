@@ -12,16 +12,16 @@ import {
 } from '@tabler/icons-react'
 
 const HOBBIES = [
-  { icon: IconBarbell,        label: 'powerlifting', color: 'var(--mocha-peach)'  },
-  { icon: IconTerminal2,      label: 'linux ricing', color: 'var(--mocha-green)'  },
-  { icon: IconMountain,       label: 'hiking',       color: 'var(--mocha-yellow)' },
-  { icon: IconDeviceGamepad2, label: 'video games',  color: 'var(--mocha-mauve)'  },
+  { icon: IconBarbell, label: 'powerlifting', color: 'var(--mocha-peach)' },
+  { icon: IconTerminal2, label: 'linux ricing', color: 'var(--mocha-green)' },
+  { icon: IconMountain, label: 'hiking', color: 'var(--mocha-yellow)' },
+  { icon: IconDeviceGamepad2, label: 'video games', color: 'var(--mocha-mauve)' },
 ]
 
 const INFO = [
   { key: 'experience', value: 'over 5 years' },
-  { key: 'focus',      value: 'JavaScript · TypeScript · React · Node.js · AI' },
-  { key: 'status',     value: 'open to work' },
+  { key: 'focus', value: 'JavaScript · TypeScript · React · Node.js · AI' },
+  { key: 'status', value: 'open to work' },
 ]
 
 export default function About() {
@@ -43,8 +43,8 @@ export default function About() {
         <div
           className="shrink-0 rounded-xl border overflow-hidden self-start"
           style={{
-            width:       'clamp(140px, 16vw, 220px)',
-            height:      'clamp(140px, 16vw, 220px)',
+            width: 'clamp(140px, 16vw, 220px)',
+            height: 'clamp(140px, 16vw, 220px)',
             borderColor: 'var(--mocha-surface1)',
           }}
         >
@@ -61,7 +61,7 @@ export default function About() {
             className="font-semibold leading-tight mb-1.5"
             style={{
               fontSize: 'clamp(1.5rem, 3vw, 2.4rem)',
-              color:    'var(--mocha-text)',
+              color: 'var(--mocha-text)',
             }}
           >
             Nathan Blaga
@@ -70,7 +70,7 @@ export default function About() {
             className="font-normal mb-2"
             style={{
               fontSize: 'clamp(1rem, 1.8vw, 1.35rem)',
-              color:    'var(--mocha-mauve)',
+              color: 'var(--mocha-mauve)',
             }}
           >
             Full-Stack Developer
@@ -84,7 +84,7 @@ export default function About() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs hover:opacity-80 transition-opacity self-start"
             style={{
               background: 'var(--mocha-surface0)',
-              color:      'var(--mocha-teal)',
+              color: 'var(--mocha-teal)',
             }}
           >
             <IconDownload size={13} aria-hidden="true" />
@@ -98,7 +98,7 @@ export default function About() {
         className="text-sm leading-[1.75] mb-5"
         style={{ color: 'var(--mocha-subtext1)' }}
       >
-Hey, I'm Nathan. I've spent the last 5+ years building software in the marketing technology and data space, delivering solutions that integrate systems, automate workflows, and support production environments. I'm focused on building full-stack applications using modern JavaScript and TypeScript, while exploring how AI is shaping software development. Outside of work you'll find me under a barbell, out on a trail, or deep in a Linux config rabbit hole.
+        Hey, I'm Nathan. I've spent the last 5+ years building software in the marketing technology and data space, delivering solutions that integrate systems, automate workflows, and support production environments. I'm focused on building full-stack applications using modern JavaScript and TypeScript, while exploring how AI is shaping software development. Outside of work you'll find me under a barbell, out on a trail, or deep in a Linux config rabbit hole.
       </p>
 
       {/* Info section */}
